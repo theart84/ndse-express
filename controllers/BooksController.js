@@ -6,7 +6,7 @@ class BooksController {
     const data = store;
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   }
 
@@ -16,28 +16,49 @@ class BooksController {
     if (book) {
       res.status(200).json({
         success: true,
-        data
+        data,
       });
     } else {
       res.status(404).json({
         success: false,
-        message: 'Book not found'
-      })
+        message: 'Book not found',
+      });
     }
   }
 
   createBook(req, res) {
-    const { title, description, authors, favorite, fileCover, fileName } = req.body;
-    const book = new Book(title, description, authors, favorite, fileCover, fileName);
+    const {
+      title,
+      description,
+      authors,
+      favorite,
+      fileCover,
+      fileName,
+    } = req.body;
+    const book = new Book(
+      title,
+      description,
+      authors,
+      favorite,
+      fileCover,
+      fileName
+    );
     store.push(book);
     res.status(201).json({
       success: true,
-      data: book
-    })
+      data: book,
+    });
   }
 
   updateBook(req, res) {
-    const { title, description, authors, favorite, fileCover, fileName } = req.body;
+    const {
+      title,
+      description,
+      authors,
+      favorite,
+      fileCover,
+      fileName,
+    } = req.body;
     const { id } = req.params;
     const updateBookIndex = store.findIndex((item) => item.id === id);
     if (updateBookIndex !== -1) {
@@ -48,17 +69,17 @@ class BooksController {
         authors,
         favorite,
         fileCover,
-        fileName
-      }
+        fileName,
+      };
       res.status(200).json({
         success: true,
-        data: store[updateBookIndex]
-      })
+        data: store[updateBookIndex],
+      });
     } else {
       res.status(404).json({
         success: false,
-        message: 'Book not found'
-      })
+        message: 'Book not found',
+      });
     }
   }
 
@@ -68,13 +89,13 @@ class BooksController {
     if (deleteBookIndex !== -1) {
       store.splice(deleteBookIndex, 1);
       res.status(200).json({
-        success: true
-      })
+        success: true,
+      });
     } else {
       res.status(404).json({
         success: false,
-        message: 'Book not found'
-      })
+        message: 'Book not found',
+      });
     }
   }
 }
